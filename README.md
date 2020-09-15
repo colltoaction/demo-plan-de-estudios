@@ -11,4 +11,4 @@ Si te interesa continuar este trabajo, escribime!
 Créditos:
 
 * https://github.com/dagrejs/dagre-d3
-* Algunos datos tomados de https://github.com/FdelMazo/FIUBA-Plan/blob/master/data/horarios.js
+* The one and only FIUBA-Map https://fdelmazo.github.io/FIUBA-Map/
