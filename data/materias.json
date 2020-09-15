@@ -1,0 +1,42 @@
+[
+    {
+        "codigo": "CBC",
+        "nombre": "CBC"
+    },
+    {
+        "codigo": "6103",
+        "nombre": "ANALISIS MATEMATICO II A",
+        "correlativas": [
+            "CBC"
+        ]
+    },
+    {
+        "codigo": "6201",
+        "nombre": "FISICA I A",
+        "correlativas": [
+            "CBC"
+        ]
+    },
+    {
+        "codigo": "6203",
+        "nombre": "FISICA II A",
+        "correlativas": [
+            "6103",
+            "6201"
+        ]
+    },
+    {
+        "codigo": "7540",
+        "nombre": "ALGORITMOS Y PROGRAMACION I",
+        "correlativas": [
+            "CBC"
+        ]
+    },
+    {
+        "codigo": "7541",
+        "nombre": "ALGORITMOS Y PROGRAMACION II",
+        "correlativas": [
+            "7540"
+        ]
+    }
+]

@@ -1,0 +1,67 @@
+<!doctype html>
+
+<meta charset="utf-8">
+<title>Plan de estudios</title>
+
+<link rel="stylesheet" href="styles.css">
+<script src="https://d3js.org/d3.v5.min.js" charset="utf-8"></script>
+<script src="https://dagrejs.github.io/project/dagre-d3/latest/dagre-d3.min.js"></script>
+
+<h1>Plan de estudios</h1>
+
+<svg id="svg-canvas" width=960 height=600></svg>
+
+<section>
+    <p>Esta es una demo de cómo plotear un plan de estudios como un grafo a partir <a href="data/materias.json">de datos estructurados</a>.</p>
+    <p>Esto no solo es útil en sí mismo, sino que disponer de esta información puede ser de ayuda para muchos otros proyectos.</p>
+    <p>Si te interesa continuar este trabajo, escribime!</p>
+    <p>Créditos:</p>
+    <p>https://github.com/dagrejs/dagre-d3</p>
+    <p>Algunos datos tomados de https://github.com/FdelMazo/FIUBA-Plan/blob/master/data/horarios.js</p>
+    <p><a href="https://github.com/colltoaction/demo-plan-de-estudios">Volver a Github</a></p>
+</section>
+
+<script id="js">
+    d3.json("data/materias.json").then(renderPlanDeEstudios);
+
+    function renderPlanDeEstudios(materias) {
+        // Create the input graph
+        var g = new dagreD3.graphlib.Graph()
+                .setGraph({})
+                .setDefaultEdgeLabel(function() { return {}; });
+
+        for (const node of materias) {
+            g.setNode(node.codigo, { label: node.nombre });
+        }
+
+        g.nodes().forEach(function(v) {
+            var node = g.node(v);
+            // Round the corners of the nodes
+            node.rx = node.ry = 5;
+        });
+
+        // Set up edges, no special attributes.
+        for (const node of materias) {
+            // hacemos correlativas opcional para que sea más user-friendly
+            correlativas = node.correlativas || [];
+            for (const correlativa of correlativas) {
+                g.setEdge(correlativa, node.codigo);
+            }
+        }
+
+        // Create the renderer
+        var render = new dagreD3.render();
+
+        // Set up an SVG group so that we can translate the final graph.
+        var svg = d3.select("svg"),
+                svgGroup = svg.append("g");
+
+        // Run the renderer. This is what draws the final graph.
+        render(d3.select("svg g"), g);
+
+        // Center the graph
+        var xCenterOffset = (svg.attr("width") - g.graph().width) / 2;
+        svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
+        svg.attr("height", g.graph().height + 40);
+    }
+</script>
